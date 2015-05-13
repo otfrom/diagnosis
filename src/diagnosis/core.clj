@@ -1,5 +1,7 @@
 (ns diagnosis.core)
 
+
+
 (comment
 
   (let [foo [{:diagnosis_code "345" :p1 "HIGH CPU" :p2 "HIGH IO"}
@@ -8,8 +10,8 @@
              {:diagnosis_code "999" :p1 "FELL OVER" :p2 "NONE"}]
         counts (reduce (fn [acc new]
                          (-> acc
-                             (update-in [(:diagnosis_code new) (:p1 new)] (fnil inc 0))
-                             (update-in [(:diagnosis_code new) (:p2 new)] (fnil inc 0))))
+                             (update-in ((juxt :diagnosis_code :p1) new) (fnil inc 0))
+                             (update-in ((juxt :diagnosis_code :p2) new) (fnil inc 0))))
                        {}
                        foo)
         columns (->> counts
