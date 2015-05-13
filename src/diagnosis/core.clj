@@ -8,10 +8,10 @@
              {:diagnosis_code "345" :p1 "HIGH CPU" :p2 "MAGIC SMOKE ESCAPE"}
              {:diagnosis_code "345" :p1 "HIGH CPU" :p2 "NONE"}
              {:diagnosis_code "999" :p1 "FELL OVER" :p2 "NONE"}]
-        counts (reduce (fn [acc new]
+        counts (reduce (fn [acc {:keys [diagnosis_code p1 p2]}]
                          (-> acc
-                             (update-in ((juxt :diagnosis_code :p1) new) (fnil inc 0))
-                             (update-in ((juxt :diagnosis_code :p2) new) (fnil inc 0))))
+                             (update-in [diagnosis_code p1] (fnil inc 0))
+                             (update-in [diagnosis_code p2] (fnil inc 0))))
                        {}
                        foo)
         columns (->> counts
