@@ -15,6 +15,7 @@
         columns (->> counts
                      (mapcat (fn [map-entry] (-> map-entry second keys)))
                      (into #{})
+                     sort
                      vec)
         getters (map (fn [c] (fn [m] (-> m second (get c 0)))) columns)]
     (into (vector (cons "DIAGNOSIS" columns))
