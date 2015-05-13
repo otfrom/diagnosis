@@ -20,11 +20,15 @@
                      sort
                      vec)
         getters (map (fn [c] (fn [m] (-> m second (get c 0)))) columns)]
-    (into (vector (cons "DIAGNOSIS" columns))
+    (into (vector (vec (cons "DIAGNOSIS" columns)))
           (map
            (fn [c]
-             (cons (first c)
-                   ((apply juxt getters) c)))
+             (->> (cons (first c)
+                        ((apply juxt getters) c))
+                  (into [])))
            counts)))
+
+  ;; output
+  ;; [["DIAGNOSIS" "FELL OVER" "HIGH CPU" "HIGH IO" "MAGIC SMOKE ESCAPE" "NONE"] ["999" 1 0 0 0 1] ["345" 0 3 1 1 1]]
 
   )
