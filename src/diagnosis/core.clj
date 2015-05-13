@@ -21,7 +21,7 @@
           (map
            (fn [c]
              (cons (first c)
-                   (map (fn [f] (f c)) getters)))
+                   ((apply juxt getters) c)))
            counts)))
 
   )
