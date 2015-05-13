@@ -13,7 +13,7 @@
                        {}
                        foo)
         columns (->> counts
-                     (mapcat (fn [map-entry] (-> map-entry second keys)))
+                     (mapcat (comp keys second))
                      (into #{})
                      sort
                      vec)
